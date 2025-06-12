@@ -1,10 +1,22 @@
-# Turborepo starter
+# Full Stack FastAPI + Next.js Turborepo Starter
 
-This Turborepo starter is maintained by the Turborepo core team.
+This Turborepo starter provides a modern full-stack development environment with FastAPI backend and Next.js frontend, using pnpm as the package manager.
+
+## Prerequisites
+
+- [Node.js](https://nodejs.org/) (v18 or later)
+- [pnpm](https://pnpm.io/) (v8 or later)
+- [Python](https://www.python.org/) (v3.11 or later)
 
 ## Using this example
 
-Run the following command:
+First, ensure you have pnpm installed:
+
+```sh
+npm install -g pnpm
+```
+
+Then run:
 
 ```sh
 npx create-turbo@latest
@@ -16,13 +28,24 @@ This Turborepo includes the following packages/apps:
 
 ### Apps and Packages
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
+- `web`: a [Next.js](https://nextjs.org/) frontend application
+- `api`: a [FastAPI](https://fastapi.tiangolo.com/) backend application
+- `@repo/ui`: a shared React component library used by the frontend
 - `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
 - `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+- `@repo/shared`: shared types and utilities between frontend and backend
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+
+### Tech Stack
+
+- **Frontend**: Next.js 14 with App Router
+- **Backend**: FastAPI with Python 3.11+
+- **Database**: PostgreSQL (configurable)
+- **Authentication**: JWT-based auth system
+- **API Documentation**: Swagger/OpenAPI (FastAPI)
+- **Type Safety**: TypeScript + Python type hints
+- **Package Manager**: pnpm
 
 ### Utilities
 
@@ -31,12 +54,15 @@ This Turborepo has some additional tools already setup for you:
 - [TypeScript](https://www.typescriptlang.org/) for static type checking
 - [ESLint](https://eslint.org/) for code linting
 - [Prettier](https://prettier.io) for code formatting
+- [Black](https://black.readthedocs.io/) for Python code formatting
+- [isort](https://pycqa.github.io/isort/) for Python import sorting
+- [mypy](https://mypy.readthedocs.io/) for Python type checking
 
 ### Build
 
 To build all apps and packages, run the following command:
 
-```
+```sh
 cd my-turborepo
 pnpm build
 ```
@@ -45,9 +71,32 @@ pnpm build
 
 To develop all apps and packages, run the following command:
 
-```
+```sh
 cd my-turborepo
 pnpm dev
+```
+
+This will start:
+- Next.js frontend on http://localhost:3000
+- FastAPI backend on http://localhost:8000
+- API documentation on http://localhost:8000/docs
+
+### Package Management
+
+This project uses pnpm workspaces for managing dependencies. Key pnpm commands:
+
+```sh
+# Install dependencies
+pnpm install
+
+# Add a dependency to a specific workspace
+pnpm add <package> --filter <workspace>
+
+# Add a dev dependency to a specific workspace
+pnpm add -D <package> --filter <workspace>
+
+# Run a script in a specific workspace
+pnpm --filter <workspace> <script>
 ```
 
 ### Remote Caching
@@ -59,7 +108,7 @@ Turborepo can use a technique known as [Remote Caching](https://turborepo.com/do
 
 By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
 
-```
+```sh
 cd my-turborepo
 npx turbo login
 ```
@@ -68,8 +117,24 @@ This will authenticate the Turborepo CLI with your [Vercel account](https://verc
 
 Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
 
-```
+```sh
 npx turbo link
+```
+
+## Project Structure
+
+```
+my-turborepo/
+├── apps/
+│   ├── web/          # Next.js frontend
+│   └── api/          # FastAPI backend
+├── packages/
+│   ├── ui/           # Shared UI components
+│   ├── shared/       # Shared types and utilities
+│   ├── eslint-config/
+│   └── typescript-config/
+├── pnpm-workspace.yaml
+└── package.json
 ```
 
 ## Useful Links
